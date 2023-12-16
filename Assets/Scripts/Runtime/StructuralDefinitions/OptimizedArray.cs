@@ -15,6 +15,23 @@ namespace Runtime.StructuralDefinitions
             _array = Array.Empty<T>();
         }
 
+        public OptimizedList(T t)
+        {
+            _array = new T[1];
+
+            _array[0] = t;
+        }
+        
+        public OptimizedList(T[] tArray)
+        {
+            _array = new T[tArray.Length];
+
+            for (int index = 0; index < tArray.Length; index++)
+            {
+                _array[index] = tArray[index];
+            }
+        }
+
         public void Add(T t)
         {
             T[] tempArray = _array;
@@ -40,12 +57,30 @@ namespace Runtime.StructuralDefinitions
                 }
             }
 
+            RemoveAt(removeIndex);
+        }
+
+        public void RemoveAt(int removeIndex)
+        {
             for (int index = removeIndex; index < _array.Length - 1; index++)
             {
                 _array[index] = _array[index + 1];
             }
             
             Array.Resize(ref _array, _array.Length - 1);
+        }
+
+        public bool Contains(T t)
+        {
+            for (int index = 0; index < _array.Length; index++)
+            {
+                if (_array[index].Equals(t))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

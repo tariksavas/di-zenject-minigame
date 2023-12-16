@@ -25,6 +25,13 @@ namespace Runtime.InventoryModule.UI
         [SerializeField]
         private Transform _content;
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            
+            UpdateView().Forget();
+        }
+
         public async UniTaskVoid UpdateView()
         {
             OptimizedList<UserItem> userItems = _inventoryController.GetUserItems();

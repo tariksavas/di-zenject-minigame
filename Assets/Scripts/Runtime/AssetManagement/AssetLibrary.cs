@@ -12,6 +12,7 @@ namespace Runtime.AssetManagement
 
         public static async UniTask<T> LoadAndGetAssetAsync<T>(string key, CancellationToken cancellationToken = default) where T : Object
         {
+
             if (Cache.TryGetValue(key, out Object asset))
             {
                 return asset as T;
@@ -21,7 +22,7 @@ namespace Runtime.AssetManagement
         }
 
         private static async UniTask<Object> LoadAssetAsync(string key, CancellationToken cancellationToken = default)
-        {
+        { 
             Object loadedObject = await Addressables.LoadAssetAsync<Object>(key).WithCancellation(cancellationToken);
 
             Cache.TryAdd(key, loadedObject);

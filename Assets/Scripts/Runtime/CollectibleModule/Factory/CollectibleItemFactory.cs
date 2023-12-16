@@ -1,12 +1,11 @@
 using Cysharp.Threading.Tasks;
 using Runtime.AssetManagement;
-using Runtime.CollectibleModule.Model;
 using UnityEngine;
 using Zenject;
 
 namespace Runtime.CollectibleModule.Factory
 {
-    public class CollectibleItemFactory : IFactory<string, int, int,Transform, UniTask<CollectibleItem>>
+    public class CollectibleItemFactory : IFactory<string, int, int, UniTask<CollectibleItem>>
     {     
         private readonly DiContainer _diContainer;
 
@@ -15,12 +14,11 @@ namespace Runtime.CollectibleModule.Factory
             _diContainer = diContainer;
         }
 
-        public async UniTask<CollectibleItem> Create(string assetKey, int type, int count, Transform parent)
+        public async UniTask<CollectibleItem> Create(string assetKey, int type, int count)
         {
             GameObject prefab = await AssetLibrary.LoadAndGetAssetAsync<GameObject>(assetKey);
 
-            return _diContainer.InstantiatePrefabForComponent<CollectibleItem>(prefab, parent, new object[] { type, count});
-            
+            return _diContainer.InstantiatePrefabForComponent<CollectibleItem>(prefab, new object[] { type, count});
         }
     }
 }
