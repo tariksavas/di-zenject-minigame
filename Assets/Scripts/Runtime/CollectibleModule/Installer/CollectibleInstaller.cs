@@ -9,10 +9,10 @@ namespace Runtime.CollectibleModule.Installer
     {
         public override void InstallBindings()
         {
+            Container.Bind<CollectibleController>().AsSingle().NonLazy();
+            
             Container.BindFactory<string, int, int, UniTask<CollectibleItem>, CollectibleItem.Factory>()
                 .FromFactory<CollectibleItemFactory>();
-            
-            Container.Bind<CollectibleController>().AsSingle().Lazy();
         }
     }
 }

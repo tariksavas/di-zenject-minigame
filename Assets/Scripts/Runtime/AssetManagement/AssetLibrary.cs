@@ -12,18 +12,17 @@ namespace Runtime.AssetManagement
 
         public static async UniTask<T> LoadAndGetAssetAsync<T>(string key, CancellationToken cancellationToken = default) where T : Object
         {
-
             if (Cache.TryGetValue(key, out Object asset))
             {
                 return asset as T;
             }
 
-            return await LoadAssetAsync(key, cancellationToken) as T;
+            return await LoadAssetAsync<T>(key, cancellationToken);
         }
 
-        private static async UniTask<Object> LoadAssetAsync(string key, CancellationToken cancellationToken = default)
+        private static async UniTask<T> LoadAssetAsync<T>(string key, CancellationToken cancellationToken = default) where T : Object
         { 
-            Object loadedObject = await Addressables.LoadAssetAsync<Object>(key).WithCancellation(cancellationToken);
+            T loadedObject = await Addressables.LoadAssetAsync<T>(key).WithCancellation(cancellationToken);
 
             Cache.TryAdd(key, loadedObject);
 

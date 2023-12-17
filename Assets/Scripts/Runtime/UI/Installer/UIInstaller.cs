@@ -9,10 +9,10 @@ namespace Runtime.UI.Installer
     {
         public override void InstallBindings()
         {
+            Container.Bind<UIPanelController>().AsSingle().NonLazy();
+            
             Container.BindFactory<string, UniTask<UIPanel>, UIPanel.Factory>()
                 .FromFactory<UIPanelFactory>();
-            
-            Container.Bind<UIPanelController>().AsSingle().Lazy();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Runtime.InputModule.Installer
     {
         public override void InstallBindings()
         {
-            Container.Bind<InputController>().AsSingle().NonLazy();
+            Container.Bind<ITickable>().To<InputController>().AsSingle().NonLazy();
         }
     }
 }

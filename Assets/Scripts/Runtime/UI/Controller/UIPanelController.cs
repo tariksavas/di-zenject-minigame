@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Runtime.StructuralDefinitions;
-using Runtime.UI.Factory;
 
 namespace Runtime.UI.Controller
 {
     public class UIPanelController
     {
-        private readonly UIPanelFactory _uiPanelFactory;
+        private readonly UIPanel.Factory _uiPanelFactory;
 
         private readonly Dictionary<Type, UIPanel> _cachedPanels = new Dictionary<Type, UIPanel>();
        
         private readonly OptimizedList<Type> _inProgress = new OptimizedList<Type>();
 
-        public UIPanelController(UIPanelFactory uiPanelFactory)
+        public UIPanelController(UIPanel.Factory uiPanelFactory)
         {
             _uiPanelFactory = uiPanelFactory;
         }

@@ -11,21 +11,26 @@ namespace Runtime.CollectibleModule
         [Inject] 
         private readonly InventoryController _inventoryController;
         
-        public int type;
-        public int count;
+        private int _type;
+        private int _count;
         
         [Inject]
         public void Construct(int type, int count)
         {
-            this.type = type;
-            this.count = count;
+            _type = type;
+            _count = count;
+        }
+
+        private void Start()
+        {
+            _inventoryController.AddUserItem(_type, _count);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(TagConfig.PLAYER_TAG))
             {
-                _inventoryController.AddUserItem(type, count);
+                _inventoryController.AddUserItem(_type, _count);
             }
         }
 

@@ -16,9 +16,9 @@ namespace Runtime.CollectibleModule.Factory
 
         public async UniTask<CollectibleItem> Create(string assetKey, int type, int count)
         {
-            GameObject prefab = await AssetLibrary.LoadAndGetAssetAsync<GameObject>(assetKey);
+            GameObject loadedObject = await AssetLibrary.LoadAndGetAssetAsync<GameObject>(assetKey);
 
-            return _diContainer.InstantiatePrefabForComponent<CollectibleItem>(prefab, new object[] { type, count});
+            return _diContainer.InstantiatePrefabForComponent<CollectibleItem>(loadedObject, new object[] { type, count});
         }
     }
 }

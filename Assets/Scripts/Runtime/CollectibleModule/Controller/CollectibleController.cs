@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Runtime.CollectibleModule.Factory;
 using Runtime.ConfigurationModule.Controller;
 using Runtime.ConfigurationModule.Model;
 using UnityEngine;
@@ -10,9 +9,9 @@ namespace Runtime.CollectibleModule.Controller
     {
         private readonly IConfigurationController _configurationController;
 
-        private readonly CollectibleItemFactory _collectibleItemFactory;
+        private readonly CollectibleItem.Factory _collectibleItemFactory;
 
-        public CollectibleController(IConfigurationController configurationController, CollectibleItemFactory collectibleItemFactory)
+        public CollectibleController(IConfigurationController configurationController, CollectibleItem.Factory collectibleItemFactory)
         {
             _configurationController = configurationController;
             _collectibleItemFactory = collectibleItemFactory;

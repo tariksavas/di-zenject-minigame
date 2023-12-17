@@ -63,7 +63,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 629787fabec25d44e9420ba0a1a752f2
-    m_Address: InventoryPanel
+    m_Address: InventoryUIPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5693c985ad0297849845247425b91830
+    m_Address: GameUIPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
