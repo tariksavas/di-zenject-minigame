@@ -26,7 +26,7 @@ namespace Zenject
 
     public interface IFactory<in TParam1, in TParam2, in TParam3, in TParam4, out TValue> : IFactory
     {
-        TValue Create(TParam1 param1, TParam2 param2, TParam3 param3, TParam4 param4);
+        TValue Create(TParam1 param1, TParam2 param2, TParam3 value, TParam4 param4);
     }
 
     public interface IFactory<in TParam1, in TParam2, in TParam3, in TParam4, in TParam5, out TValue> : IFactory

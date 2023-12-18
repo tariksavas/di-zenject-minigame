@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Item_Coin
   m_EditorClassIdentifier: 
   type: 0
-  minCount: 3
-  maxCount: 10
+  minCount: 10
+  maxCount: 20
+  minValue: 1
+  maxValue: 10
   assetKey: Asset_Coin

@@ -7,8 +7,11 @@ namespace Runtime.ConfigurationModule.Controller
     {
         private const string INVENTORY_ITEMS_PATH = "Config/Inventory/Item";
         private const string COLLECTIBLE_ITEMS_PATH = "Config/Collectible/Item";
+        private const string MAP_RANGE_PATH = "Config/Map/Range";
         
         private InventoryItemObject[] _inventoryItemObjects;
+        
+        private MapRangeObject[] _mapRangeObjects;
         
         private CollectibleItemObject[] _collectibleItemObjects;
         
@@ -16,6 +19,7 @@ namespace Runtime.ConfigurationModule.Controller
         {
             _inventoryItemObjects = LoadItems<InventoryItemObject>(INVENTORY_ITEMS_PATH);
             _collectibleItemObjects = LoadItems<CollectibleItemObject>(COLLECTIBLE_ITEMS_PATH);
+            _mapRangeObjects = LoadItems<MapRangeObject>(MAP_RANGE_PATH);
         }
 
         private T[] LoadItems<T>(string path) where T : LoadableScriptableObject
@@ -38,7 +42,7 @@ namespace Runtime.ConfigurationModule.Controller
         {
             return _inventoryItemObjects[type] as T;
         }
-
+        
         public T GetCollectibleItemConfig<T>(int type) where T : class
         {
             return _collectibleItemObjects[type] as T;
@@ -47,6 +51,11 @@ namespace Runtime.ConfigurationModule.Controller
         public T[] GetCollectibleItemConfigs<T>() where T : class
         {
             return _collectibleItemObjects as T[];
+        }
+
+        public T GetMapRangeConfig<T>(int type) where T : class
+        {
+            return _mapRangeObjects[type] as T;
         }
     }
 }

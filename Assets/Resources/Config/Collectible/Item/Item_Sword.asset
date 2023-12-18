@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   minCount: 0
-  maxCount: 3
+  maxCount: 10
+  minValue: 1
+  maxValue: 1
   assetKey: Asset_Sword

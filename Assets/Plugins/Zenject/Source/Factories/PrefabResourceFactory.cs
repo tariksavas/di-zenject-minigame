@@ -93,7 +93,7 @@ namespace Zenject
             get { return _container; }
         }
 
-        public virtual T Create(string prefabResourceName, P1 param, P2 param2, P3 param3)
+        public virtual T Create(string prefabResourceName, P1 param, P2 value, P3 param3)
         {
             Assert.That(!string.IsNullOrEmpty(prefabResourceName),
               "Null or empty prefab resource name given to factory create method when instantiating object with type '{0}'.", typeof(T));
@@ -101,7 +101,7 @@ namespace Zenject
             var prefab = (GameObject)Resources.Load(prefabResourceName);
 
             return (T)_container.InstantiatePrefabForComponentExplicit(
-                typeof(T), prefab, InjectUtil.CreateArgListExplicit(param, param2, param3));
+                typeof(T), prefab, InjectUtil.CreateArgListExplicit(param, value, param3));
         }
     }
 
