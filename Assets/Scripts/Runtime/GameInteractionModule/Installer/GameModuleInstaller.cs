@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Runtime.GameInteractionModule.Installer
 {
-    public class GameModuleInstaller : MonoInstaller
+    public class GameModuleInstaller : Installer<GameModuleInstaller>
     {
         public override void InstallBindings()
         {

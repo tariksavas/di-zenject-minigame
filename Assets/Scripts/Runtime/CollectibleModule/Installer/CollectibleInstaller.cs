@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Runtime.CollectibleModule.Installer
 {
-    public class CollectibleInstaller : MonoInstaller
+    public class CollectibleInstaller : Installer<CollectibleInstaller>
     {
         public override void InstallBindings()
         {

@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Runtime.PlayerMovementModule.Installer
 {
-    public class PlayerMovementInstaller : MonoInstaller
+    public class PlayerMovementInstaller : Installer<PlayerMovementInstaller>
     {
         public override void InstallBindings()
         {
