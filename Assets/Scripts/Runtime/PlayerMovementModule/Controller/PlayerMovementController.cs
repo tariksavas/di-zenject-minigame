@@ -15,7 +15,7 @@ namespace Runtime.PlayerMovementModule.Controller
         private readonly DiContainer _diContainer;
 
         private const string PLAYER_KEY = "Player";
-        private const float _movementSpeed = 20f;
+        private const float MOVEMENT_SPEED = 50f;
 
         private Rigidbody _playerRigidbody;
         
@@ -46,7 +46,7 @@ namespace Runtime.PlayerMovementModule.Controller
         private void OnPlayerMovementSignalFired(PlayerMovementInputSignal playerMovementInputSignal)
         {
             _playerRigidbody.MovePosition(_playerRigidbody.transform.position +
-                                          playerMovementInputSignal.Axis * Time.deltaTime * _movementSpeed);
+                                          playerMovementInputSignal.Axis * Time.deltaTime * MOVEMENT_SPEED);
         }
         
         private void UnsubscribeEvents()

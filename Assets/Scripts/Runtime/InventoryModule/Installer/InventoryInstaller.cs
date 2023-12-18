@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Runtime.InventoryModule.Installer
 {
-    public class InventoryInstaller : MonoInstaller<InventoryInstaller>
+    public class InventoryInstaller : Installer<InventoryInstaller>
     {
         public override void InstallBindings()
         {

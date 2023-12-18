@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Runtime.InputModule.Installer
 {
-    public class InputModuleInstaller : MonoInstaller
+    public class InputModuleInstaller : Installer<InputModuleInstaller>
     {
         public override void InstallBindings()
         {
