@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Runtime.ConfigurationModule.Controller;
 using Runtime.ConfigurationModule.Model;
 using Runtime.InventoryModule.Controller;
-using Runtime.InventoryModule.Model;
-using Runtime.StructuralDefinitions;
+using Runtime.SignalBus.Controller;
+using Runtime.SignalBus.Signal;
 using Runtime.UI;
 using UnityEngine;
 using Zenject;
@@ -19,33 +20,78 @@ namespace Runtime.InventoryModule.UI
         private InventoryController _inventoryController;
         
         [Inject]
+        private SignalController _signalController;
+        
+        [Inject]
         private IConfigurationController _configurationController;
         
         [SerializeField]
         private Transform _content;
 
-        protected override void OnEnable()
+        private readonly Dictionary<int, InventoryUIItem> _cachedUserItems = new Dictionary<int, InventoryUIItem>();
+
+        protected override void Awake()
         {
-            base.OnEnable();
-            
-            UpdateView().Forget();
+            base.Awake();
+
+            UpdateViewInit();
         }
 
-        public async UniTaskVoid UpdateView()
+        protected override void SubscribeEvents()
         {
-            //TODO: Clear content childs
+            base.SubscribeEvents();
             
-            OptimizedList<UserItem> userItems = _inventoryController.GetUserItems();
-            
-            for (int index = 0; index < userItems.Count; index++)
-            {
-                UserItem userItem = userItems[index];
+            _signalController.Subscribe<UserItemsUpdatedSignal>(UpdateView);
+        }
 
-                InventoryItemObject inventoryItemObject =
-                    _configurationController.GetInventoryItemConfig<InventoryItemObject>(userItem.type);
+        private void UpdateViewInit()
+        {
+            Dictionary<int, int> userItems = _inventoryController.GetUserItems();
+            UpdateView(new UserItemsUpdatedSignal(userItems));
+        }
+        
+        private void UpdateView(UserItemsUpdatedSignal userItemsUpdatedSignal)
+        {
+            foreach (int key in userItemsUpdatedSignal.UserItems.Keys)
+            {
+                int type = key;
+                int value = userItemsUpdatedSignal.UserItems[key];
                 
-                _inventoryItemFactory.Create(inventoryItemObject.imageKey, userItem.count, _content).Forget();
+                if (_cachedUserItems.TryGetValue(type, out InventoryUIItem cachedUserItem))
+                {
+                    if (value <= 0)
+                    {
+                        _cachedUserItems.Remove(type);
+                        Destroy(cachedUserItem);
+                    }
+                    else
+                    {
+                        cachedUserItem.UpdateCount(value);
+                    }
+                
+                    continue;
+                }
+
+                CreateInventoryUIItem(type, value).Forget();
             }
+        }
+
+        private async UniTaskVoid CreateInventoryUIItem(int type, int value)
+        {
+            InventoryItemObject inventoryItemObject =
+                _configurationController.GetInventoryItemConfig<InventoryItemObject>(type);
+
+            InventoryUIItem inventoryUIItem =
+                await _inventoryItemFactory.Create(inventoryItemObject.imageKey, value, _content);
+
+            _cachedUserItems.Add(type, inventoryUIItem);
+        }
+
+        protected override void UnsubscribeEvents()
+        {
+            base.UnsubscribeEvents();
+            
+            _signalController.UnSubscribe<UserItemsUpdatedSignal>(UpdateView);
         }
     }
 }

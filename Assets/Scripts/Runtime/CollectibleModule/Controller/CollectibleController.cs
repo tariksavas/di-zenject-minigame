@@ -21,6 +21,8 @@ namespace Runtime.CollectibleModule.Controller
 
         private void PlaceObjects()
         {
+            MapRangeObject mapRangeObject = _configurationController.GetMapRangeConfig<MapRangeObject>(0);
+
             CollectibleItemObject[] collectibleItemObjects =
                 _configurationController.GetCollectibleItemConfigs<CollectibleItemObject>();
 
@@ -30,8 +32,16 @@ namespace Runtime.CollectibleModule.Controller
 
                 int randomItemCount = Random.Range(collectibleItemObject.minCount, collectibleItemObject.maxCount);
 
-                _collectibleItemFactory.Create(collectibleItemObject.assetKey, collectibleItemObject.type,
-                    randomItemCount).Forget();
+                for (int countIndex = 0; countIndex < randomItemCount; countIndex++)
+                {
+                    int randomItemValue = Random.Range(collectibleItemObject.minValue, collectibleItemObject.maxValue);
+
+                    Vector3 randomPosition = new Vector3(Random.Range(mapRangeObject.minX, mapRangeObject.maxX),
+                        mapRangeObject.fixedY, Random.Range(mapRangeObject.minZ, mapRangeObject.maxZ));
+
+                    _collectibleItemFactory.Create(collectibleItemObject.assetKey, collectibleItemObject.type,
+                        randomItemValue, randomPosition).Forget();
+                }
             }
         }
     }

@@ -28,6 +28,12 @@ namespace Runtime.InventoryModule.UI
             UpdateView().Forget();
         }
 
+        public void UpdateCount(int count)
+        {
+            _count = count;
+            _countText.text = _count.ToString();
+        }
+        
         private async UniTaskVoid UpdateView()
         {
             _countText.text = _count.ToString();

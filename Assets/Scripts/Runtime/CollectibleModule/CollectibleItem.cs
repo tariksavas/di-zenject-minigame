@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Runtime.ConfigurationModule.Config;
-using Runtime.InventoryModule.Controller;
+using Runtime.SignalBus.Controller;
+using Runtime.SignalBus.Signal;
 using UnityEngine;
 using Zenject;
 
@@ -9,31 +10,28 @@ namespace Runtime.CollectibleModule
     public class CollectibleItem : MonoBehaviour
     {
         [Inject] 
-        private readonly InventoryController _inventoryController;
+        private readonly SignalController _signalController;
         
         private int _type;
-        private int _count;
+        private int _value;
         
         [Inject]
-        public void Construct(int type, int count)
+        public void Construct(int type, int value)
         {
             _type = type;
-            _count = count;
-        }
-
-        private void Start()
-        {
-            _inventoryController.AddUserItem(_type, _count);
+            _value = value;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(TagConfig.PLAYER_TAG))
             {
-                _inventoryController.AddUserItem(_type, _count);
+                _signalController.Fire(new ItemValueChangedSignal(_type, _value));
+                
+                Destroy(gameObject);
             }
         }
 
-        public class Factory : PlaceholderFactory<string, int, int, UniTask<CollectibleItem>> { }
+        public class Factory : PlaceholderFactory<string, int, int, Vector3, UniTask<CollectibleItem>> { }
     }
 }

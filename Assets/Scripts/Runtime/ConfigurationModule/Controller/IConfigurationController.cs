@@ -7,5 +7,7 @@ namespace Runtime.ConfigurationModule.Controller
         public T GetCollectibleItemConfig<T>(int type) where T : class;
         
         public T[] GetCollectibleItemConfigs<T>() where T : class;
+        
+        public T GetMapRangeConfig<T>(int type) where T : class;
     }
 }

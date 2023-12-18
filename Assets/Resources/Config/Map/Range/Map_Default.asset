@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 353fd35b92604558b4f5a7be72b509ab, type: 3}
-  m_Name: Item_Armor
+  m_Script: {fileID: 11500000, guid: 4d50d6c3c2f145d99cfada7f9ac37bbc, type: 3}
+  m_Name: Map_Default
   m_EditorClassIdentifier: 
-  type: 1
-  minCount: 0
-  maxCount: 10
-  minValue: 1
-  maxValue: 1
-  assetKey: Asset_Armor
+  type: 0
+  maxX: 45
+  minX: -45
+  maxZ: 45
+  minZ: -45
+  fixedY: -4

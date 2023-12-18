@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Runtime.CollectibleModule.Factory
 {
-    public class CollectibleItemFactory : IFactory<string, int, int, UniTask<CollectibleItem>>
+    public class CollectibleItemFactory : IFactory<string, int, int, Vector3, UniTask<CollectibleItem>>
     {     
         private readonly DiContainer _diContainer;
 
@@ -14,11 +14,15 @@ namespace Runtime.CollectibleModule.Factory
             _diContainer = diContainer;
         }
 
-        public async UniTask<CollectibleItem> Create(string assetKey, int type, int count)
+        public async UniTask<CollectibleItem> Create(string assetKey, int type, int value, Vector3 position)
         {
             GameObject loadedObject = await AssetLibrary.LoadAndGetAssetAsync<GameObject>(assetKey);
 
-            return _diContainer.InstantiatePrefabForComponent<CollectibleItem>(loadedObject, new object[] { type, count});
+            CollectibleItem collectibleItem = _diContainer.InstantiatePrefabForComponent<CollectibleItem>(loadedObject,
+                new object[] { type, value });
+            collectibleItem.transform.position = position;
+
+            return collectibleItem;
         }
     }
 }
