@@ -34,14 +34,8 @@ namespace Runtime.StructuralDefinitions
 
         public void Add(T t)
         {
-            T[] tempArray = _array;
-            _array = new T[_array.Length + 1];
-
-            for (int index = 0; index < tempArray.Length; index++)
-            {
-                _array[index] = tempArray[index];
-            }
-
+            Array.Resize(ref _array, _array.Length + 1);
+            
             _array[^1] = t;
         }
 

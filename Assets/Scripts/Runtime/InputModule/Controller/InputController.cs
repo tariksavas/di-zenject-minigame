@@ -24,10 +24,10 @@ namespace Runtime.InputModule.Controller
                 {
                     _signalController.Fire(new InputSignal(InputType.InventoryOpenClose));
                 }
-
-                _signalController.Fire(new PlayerMovementInputSignal(new Vector3(Input.GetAxis("Horizontal"), 0,
-                    Input.GetAxis("Vertical"))));
             }
+
+            _signalController.Fire(new PlayerMovementInputSignal(new Vector3(Input.GetAxis("Horizontal"), 0,
+                Input.GetAxis("Vertical"))));
         }
     }
 }
